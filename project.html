@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #f0eeee;
+        }
+        .box{
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+            background-color: #c3c3c3;
+            box-shadow: 2px 5px 50px rgba(0,0,0,1);
+            border-radius: 25px;
+            text-align: left;
+            padding: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        #name, #eyecolor, #birthyear{
+            padding: 20px;
+            color: #ffffff;
+            font-size: 20px;
+        }
+        .get{
+            border-radius: 25px;
+            cursor: pointer;
+            padding: 20px;
+            color: #ffffff;
+            background-color: black;
+            transition: 1.2s;
+        }
+        .get:hover{
+            color: #000;
+            background-color: rgb(230, 230, 230);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+    <strong>Name:</strong>
+    <div id="name"></div>
+    <strong>Eye-color:</strong>
+    <div id="eyecolor"></div>
+    <strong>birth_year:</strong>
+    <div id="birthyear"></div>
+    <button class="get">randomize!</button>
+    </div>
+    <script>
+       const name = document.getElementById("name");
+       const eye_color = document.getElementById("eyecolor");
+       const birth_year = document.getElementById("birthyear");
+       const button = document.querySelector(".get")
+       button.addEventListener('click', (e) => {
+            e.preventDefault()
+            name.innerHTML = '<em>loading... </em>';
+            eyecolor.innerHTML = '<em>loading... </em>';
+            birthyear.innerHTML = '<em>loading... </em>';
+            const randomNumber = Math.ceil(Math.random() * 83)
+       fetch(`https://swapi.dev/api/people/${randomNumber}`)
+                .then(Response => Response.json())
+                .then(data =>{
+                    // console.log(data)
+                    name.innerHTML = data['name'];
+                    eyecolor.innerHTML = data['eye_color'];
+                    birthyear.innerHTML = data['birth_year'];
+                })
+       })
+    </script>
+</body>
+</html>
